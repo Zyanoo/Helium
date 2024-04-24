@@ -268,17 +268,28 @@ static NSString* formattedCurrentCapacity(BOOL showPercentage)
 }
 
 #pragma mark - Charging Symbol Widget
+#define RINGERSTATE_NOTI_NAME "com.apple.springboard.ringerstate"
+
+uint32_t getRingerState() {
+    int token = -1;
+    uint64_t state = -1;
+    notify_register_check(RINGERSTATE_NOTI_NAME, &token);
+    if (token != -1){
+        notify_get_state(token, &state);
+    }
+    return (uint32_t)state;
+}
+
 static NSString* formattedChargingSymbol(BOOL filled)
 {
-    [[UIDevice currentDevice] setBatteryMonitoringEnabled: YES];
-    if ([[UIDevice currentDevice] batteryState] != UIDeviceBatteryStateUnplugged) {
-        if (filled) {
-            return @"bolt.fill";
-        } else {
-            return @"bolt";
-        }
+    uint32_t ringerState = getRingerState();
+    if (ringerState == 1) {
+        // Ringer is silent
+        return @"bell.slash.fill";
+    } else {
+        // Ringer is not silent
+        return @"";
     }
-    return @"";
 }
 
 
