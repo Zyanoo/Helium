@@ -216,18 +216,15 @@ struct WidgetPreferencesView: View {
             case .chargeSymbol:
                 // MARK: Charge Symbol Fill Option
                 HStack {
-                    Text(NSLocalizedString("", comment:""))
-                        .foregroundColor(.primary)
-                        .bold()
-                    Spacer()
-                    TextField(NSLocalizedString("", comment:""), text: $text)
-                        .frame(maxWidth: 120)
-                        .multilineTextAlignment(.trailing)
-                        .onAppear {
-                            text = NSLocalizedString("", comment:"")
-                            }
+                    Toggle(isOn: $boolSelection) {
+                        Text(NSLocalizedString("", comment:""))
+                            .foregroundColor(.primary)
+                            .bold()
+                    }
+                    .onAppear {
+                        boolSelection = widgetID.config["filled"] as? Bool ?? true
+                    }
                 }
-
             case .weather:
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
@@ -378,7 +375,7 @@ struct WidgetPreferencesView: View {
             widgetStruct.config["showPercentage"] = boolSelection
         case .chargeSymbol:
             // MARK: Charge Symbol Fill Handling
-            //widgetStruct.config["filled"] = boolSelection
+            widgetStruct.config["filled"] = boolSelection
         case .weather:
             // MARK: Weather Handling
             if text == "" {
