@@ -274,9 +274,9 @@ static NSString* formattedCurrentCapacity(BOOL showPercentage)
 uint32_t getRingerState() {
     int token = -1;
     uint64_t state = -1;
-    notify_register_check(RINGERSTATE_NOTI_NAME, &token);
+    uint32_t notify_register_check(RINGERSTATE_NOTI_NAME, &token);
     if (token != -1){
-        notify_get_state(token, &state);
+        uint32_t notify_get_state(token, &state);
     }
     return (uint32_t)state;
 }
