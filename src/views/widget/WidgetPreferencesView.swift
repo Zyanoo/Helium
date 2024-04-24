@@ -213,7 +213,6 @@ struct WidgetPreferencesView: View {
                         boolSelection = widgetID.config["showPercentage"] as? Bool ?? true
                     }
                 }
-
             case .weather:
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
@@ -362,9 +361,7 @@ struct WidgetPreferencesView: View {
         case .currentCapacity:
             // MARK: Current Capacity Handling
             widgetStruct.config["showPercentage"] = boolSelection
-        case .chargeSymbol:
-            // MARK: Charge Symbol Fill Handling
-           // widgetStruct.config["filled"] = boolSelection
+
         case .weather:
             // MARK: Weather Handling
             if text == "" {
