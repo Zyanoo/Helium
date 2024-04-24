@@ -455,7 +455,7 @@ class WidgetDetails {
         case .currentCapacity:
             return (NSLocalizedString("Battery Capacity", comment: ""), "50%")
         case .chargeSymbol:
-            return (NSLocalizedString("Charging Symbol", comment: ""), "⚡️")
+            return (NSLocalizedString("Ringer State", comment: ""), "🔕")
         case .weather:
             return (NSLocalizedString("Weather", comment: ""), "🌤 20℃")
         }
