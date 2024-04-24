@@ -215,6 +215,11 @@ struct WidgetPreferencesView: View {
                 }
             case .chargeSymbol:
                 // MARK: Charge Symbol Fill Option
+                HStack {
+                    Text(NSLocalizedString("", comment:""))
+                        .foregroundColor(.primary)
+                        .bold()
+                }
 
             case .weather:
                 ScrollView(.vertical, showsIndicators: false) {
