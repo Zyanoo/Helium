@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import <net/if.h>
 #import <ifaddrs.h>
 #import <sys/wait.h>
