@@ -94,7 +94,7 @@ struct WidgetPreviewsView: View {
         case .currentCapacity:
             text = "50\(widget.config["showPercentage"] as? Bool ?? true ? "%" : "")"
         case .chargeSymbol:
-            image = widget.config["filled"] as? Bool ?? true ? Image(systemName: "bell.slash.fill") : Image(systemName: "bell.slash")
+            image = widget.config["filled"] as? Bool ?? true ? Image(systemName: "bell.slash.fill") : Image(systemName: "bell.slash.fill")
         }
         widget.modified = false
     }
