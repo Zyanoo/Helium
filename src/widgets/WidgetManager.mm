@@ -19,6 +19,8 @@
 #import "../extensions/FontUtils.h"
 #import "../extensions/WeatherUtils.h"
 
+#import <notify.h>
+
 // Thanks to: https://github.com/lwlsw/NetworkSpeed13
 
 #define KILOBITS 1000
@@ -274,9 +276,9 @@ static NSString* formattedCurrentCapacity(BOOL showPercentage)
 uint32_t getRingerState() {
     int token = -1;
     uint64_t state = -1;
-    uint32_t notify_register_check(RINGERSTATE_NOTI_NAME, &token);
+    notify_register_check(RINGERSTATE_NOTI_NAME, &token);
     if (token != -1){
-        uint32_t notify_get_state(token, &state);
+        notify_get_state(token, &state);
     }
     return (uint32_t)state;
 }
