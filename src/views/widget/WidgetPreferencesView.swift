@@ -213,11 +213,7 @@ struct WidgetPreferencesView: View {
                         boolSelection = widgetID.config["showPercentage"] as? Bool ?? true
                     }
                 }
-            case .chargeSymbol:
-                // MARK: Charge Symbol Fill Option
-                HStack {
 
-                }
             case .weather:
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
