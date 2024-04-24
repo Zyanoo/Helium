@@ -219,6 +219,13 @@ struct WidgetPreferencesView: View {
                     Text(NSLocalizedString("", comment:""))
                         .foregroundColor(.primary)
                         .bold()
+                    Spacer()
+                    TextField(NSLocalizedString("", comment:""), text: $text)
+                        .frame(maxWidth: 120)
+                        .multilineTextAlignment(.trailing)
+                        .onAppear {
+                            text = NSLocalizedString("", comment:"")
+                            }
                 }
 
             case .weather:
