@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
+#import <notify.h>
 #import <net/if.h>
 #import <ifaddrs.h>
 #import <sys/wait.h>
@@ -19,7 +19,7 @@
 #import "../extensions/FontUtils.h"
 #import "../extensions/WeatherUtils.h"
 
-#import <notify.h>
+
 
 // Thanks to: https://github.com/lwlsw/NetworkSpeed13
 
@@ -287,11 +287,9 @@ static NSString* formattedChargingSymbol(BOOL filled)
 {
     uint32_t ringerState = getRingerState();
     if (ringerState == 1) {
-        // Ringer is silent
-        return @"bell.slash.fill";
-    } else {
-        // Ringer is not silent
         return @"";
+    } else {
+        return @"bell.slash.fill";
     }
 }
 
