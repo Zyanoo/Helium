@@ -205,7 +205,7 @@ struct WidgetPreferencesView: View {
                 // MARK: Current Capacity Choice
                 HStack {
                     Toggle(isOn: $boolSelection) {
-                        Text(NSLocalizedString("Show Percent (%) Symbol", comment:""))
+                        Text(NSLocalizedString("Show Dot Indicator", comment:""))
                             .foregroundColor(.primary)
                             .bold()
                     }
