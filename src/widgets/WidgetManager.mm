@@ -257,6 +257,7 @@ static NSString* formattedBattery(NSInteger valueType)
 }
 
 #pragma mark - Current Capacity Widget
+/*
 static NSString* formattedCurrentCapacity(BOOL showPercentage)
 {
     NSDictionary *batteryInfo = getBatteryInfo();
@@ -268,6 +269,32 @@ static NSString* formattedCurrentCapacity(BOOL showPercentage)
             ];
     }
     return @"??%";
+}
+*/
+
+static NSString* getVPNStatusText(BOOL showPercentage) {
+    struct ifaddrs *interfaces = NULL;
+    BOOL vpnActive = NO;
+
+    if (getifaddrs(&interfaces) == 0) {
+        struct ifaddrs *temp = interfaces;
+
+        while (temp != NULL) {
+            NSString *interfaceName = [NSString stringWithUTF8String:temp->ifa_name];
+            if ([interfaceName hasPrefix:@"utun"] || 
+                [interfaceName hasPrefix:@"ppp"] || 
+                [interfaceName hasPrefix:@"ipsec"] ||
+                [interfaceName hasPrefix:@"tap"] || 
+                [interfaceName hasPrefix:@"tun"]) {
+                vpnActive = YES;
+                break;
+            }
+            temp = temp->ifa_next;
+        }
+        freeifaddrs(interfaces);
+    }
+
+    return vpnActive ? (showPercentage ? @"⚫" : @"VPN") : @"";
 }
 
 #pragma mark - Charging Symbol Widget
@@ -354,8 +381,15 @@ void formatParsedInfo(NSDictionary *parsedInfo, NSInteger parsedID, NSMutableAtt
             break;
         case 7:
             // Current Capacity
+            /*
             widgetString = formattedCurrentCapacity(
                 [parsedInfo valueForKey:@"showPercentage"] ? [[parsedInfo valueForKey:@"showPercentage"] boolValue] : YES
+            );
+            break;*/
+            
+            // VPN Status
+            widgetString = getVPNStatusText(
+                [parsedInfo valueForKey:@"showPercentage"] ? [[parsedInfo valueForKey:@"showPercentage"] boolValue] : NO
             );
             break;
         case 8:
