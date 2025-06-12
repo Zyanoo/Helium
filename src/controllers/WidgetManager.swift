@@ -453,7 +453,7 @@ class WidgetDetails {
         case .textWidget:
             return (NSLocalizedString("Text Label", comment: ""), NSLocalizedString("Example", comment: ""))
         case .currentCapacity:
-            return (NSLocalizedString("Battery Capacity", comment: ""), "50%")
+            return (NSLocalizedString("VPN State", comment: ""), "VPN")
         case .chargeSymbol:
             return (NSLocalizedString("Ringer State", comment: ""), "🔕")
         case .weather:
