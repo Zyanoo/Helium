@@ -281,20 +281,23 @@ static NSString* getVPNStatusText(BOOL showPercentage) {
 
         while (temp != NULL) {
             NSString *interfaceName = [NSString stringWithUTF8String:temp->ifa_name];
-            if ([interfaceName hasPrefix:@"utun"] || 
-                [interfaceName hasPrefix:@"ppp"] || 
-                [interfaceName hasPrefix:@"ipsec"] ||
-                [interfaceName hasPrefix:@"tap"] || 
-                [interfaceName hasPrefix:@"tun"]) {
+
+            if (([interfaceName hasPrefix:@"utun"] ||
+                 [interfaceName hasPrefix:@"ppp"] ||
+                 [interfaceName hasPrefix:@"ipsec"] ||
+                 [interfaceName hasPrefix:@"tap"] ||
+                 [interfaceName hasPrefix:@"tun"]) &&
+                 (temp->ifa_flags & IFF_UP)) {
                 vpnActive = YES;
                 break;
             }
+
             temp = temp->ifa_next;
         }
         freeifaddrs(interfaces);
     }
 
-    return vpnActive ? (showPercentage ? @"⚫" : @"VPN") : @"";
+    return vpnActive ? (showPercentage ? @"•" : @"VPN") : @"";
 }
 
 #pragma mark - Charging Symbol Widget
