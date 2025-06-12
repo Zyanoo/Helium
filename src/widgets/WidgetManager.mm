@@ -273,28 +273,19 @@ static NSString* formattedCurrentCapacity(BOOL showPercentage)
 */
 
 static NSString* getVPNStatusText(BOOL showPercentage) {
-    struct ifaddrs *interfaces = NULL;
+    NSDictionary *proxySettings = (__bridge_transfer NSDictionary *)CFNetworkCopySystemProxySettings();
+    NSDictionary *scoped = proxySettings[@"__SCOPED__"];
+    
     BOOL vpnActive = NO;
-
-    if (getifaddrs(&interfaces) == 0) {
-        struct ifaddrs *temp = interfaces;
-
-        while (temp != NULL) {
-            NSString *interfaceName = [NSString stringWithUTF8String:temp->ifa_name];
-
-            if (([interfaceName hasPrefix:@"utun"] ||
-                 [interfaceName hasPrefix:@"ppp"] ||
-                 [interfaceName hasPrefix:@"ipsec"] ||
-                 [interfaceName hasPrefix:@"tap"] ||
-                 [interfaceName hasPrefix:@"tun"]) &&
-                 (temp->ifa_flags & IFF_UP)) {
-                vpnActive = YES;
-                break;
-            }
-
-            temp = temp->ifa_next;
+    for (NSString *key in scoped.allKeys) {
+        if ([key containsString:@"tap"] ||
+            [key containsString:@"tun"] ||
+            [key containsString:@"ppp"] ||
+            [key containsString:@"ipsec"] ||
+            [key containsString:@"utun"]) {
+            vpnActive = YES;
+            break;
         }
-        freeifaddrs(interfaces);
     }
 
     return vpnActive ? (showPercentage ? @"•" : @"VPN") : @"";
